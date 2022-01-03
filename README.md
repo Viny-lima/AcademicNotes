@@ -10,8 +10,7 @@ Bem vindo a instalação do JAAcademic. Primeiramente verifique se sua máquina 
     
     CREATE DATABASE dbAcademicNotes;
 
-    use dbAcademicNotes;![147980865-fe417216-00b3-455a-8d7c-f8e00bb19a45](https://user-images.githubusercontent.com/82112071/147980901-32587263-ef30-4d55-bf64-7c8f365c0446.png)
-
+    use dbAcademicNotes;
 
     --- Criando banco tabelas
 
