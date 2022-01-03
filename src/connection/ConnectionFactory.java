@@ -9,11 +9,9 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
     
-    //Referenciando a classs padrão do jdbc
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
 
     //Passando porta de conexão com o banco de dados
-    private static final String URL = "jdbc:mysql://localhost/3306/dbAcademicNotes";
+    private static final String URL = "jdbc:mysql://localhost/dbAcademicNotes";
     private static final String USER = "root";
     private static final String PASSWORD = "ifpe2022";
 
@@ -21,13 +19,10 @@ public class ConnectionFactory {
         
         try 
         {
-
-            Class.forName(DRIVER);
-
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } 
         
-        catch (ClassNotFoundException | SQLException e) 
+        catch ( SQLException e) 
         {            
             throw new RuntimeException("ERRO CONNECTION DATABASE: ", e);
         } 
