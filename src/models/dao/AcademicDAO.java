@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import connection.ConnectionFactory;
+import models.bean.Student;
 
 public class AcademicDAO 
 {    
@@ -29,6 +30,22 @@ public class AcademicDAO
         createDataBase();
         createTableStudents();
         createTableNote();
+
+        var studentDAO = StudentDAO.getInstance();
+        studentDAO.create(new Student("Vinicius Lima"));
+        studentDAO.create(new Student("Roberto Braga"));
+        studentDAO.create(new Student("Samanta Santos"));
+        studentDAO.create(new Student("Thiago Oliveira"));
+        studentDAO.create(new Student("Rebeca Andrade"));
+        studentDAO.create(new Student("Neymar Francisco"));
+        studentDAO.create(new Student("Pedro Lucas"));
+        studentDAO.create(new Student("Mateus Silva"));
+        studentDAO.create(new Student("Lucas Mattos"));
+        studentDAO.create(new Student("Letícia Biatriz"));
+        studentDAO.create(new Student("Maria Clara"));
+        studentDAO.create(new Student("Ana Gabriela"));
+        studentDAO.create(new Student("Samantha Araújo"));
+        studentDAO.create(new Student("Felipe Santos"));
     }
 
     public void DeleteDatabase()
@@ -87,7 +104,7 @@ public class AcademicDAO
             sql.append(" CREATE TABLE IF NOT EXISTS STUDENTS (");
             sql.append(" STUDENT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,");
             sql.append(" STUDENT_NAME varchar(50),");
-            sql.append(" STUDENT_STATUS_ BIT );");
+            sql.append(" STUDENT_STATUS BIT );");
 
             statement = connectionDb.prepareStatement(sql.toString());
 

@@ -36,6 +36,8 @@ public class StudentDAO implements IDAOAcademicNotes<Student>
     {
         try 
         {
+            connectionDb = ConnectionFactory.getConnectionDataBase();
+
             statement = connectionDb.prepareStatement("use " + nameDatabase + ";");
             statement.executeUpdate();
 
