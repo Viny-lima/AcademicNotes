@@ -51,6 +51,11 @@ public class AcademicDAO
 
     }
 
+    public String getNameDatabase()
+    {
+        return nameDatabase;
+    }
+
     private void createDataBase() 
     {        
         try 
@@ -82,7 +87,7 @@ public class AcademicDAO
             sql.append(" CREATE TABLE IF NOT EXISTS STUDENTS (");
             sql.append(" STUDENT_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,");
             sql.append(" STUDENT_NAME varchar(50),");
-            sql.append(" STUDENT_STATUS BIT );");
+            sql.append(" STUDENT_STATUS_ BIT );");
 
             statement = connectionDb.prepareStatement(sql.toString());
 
