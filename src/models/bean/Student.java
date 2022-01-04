@@ -16,6 +16,13 @@ public class Student {
         this.name = name;
     }
 
+    public Student(int id, String name, boolean status) 
+    {
+        this.id = id;
+        this.name = name;
+        this.status = status;        
+    }
+
     //Id
     public int getId() {
         return id;

@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import connection.ConnectionFactory;
-import interfaces.IDAOAcademicNotes;
 import models.bean.Student;
 
-public class StudentDAO implements IDAOAcademicNotes<Student>
+public class StudentDAO
 {       
     private final String nameDatabase;
     private Connection connectionDb;
@@ -35,8 +33,7 @@ public class StudentDAO implements IDAOAcademicNotes<Student>
         connectionDb = ConnectionFactory.getConnectionDataBase();
     }
 
-    @Override
-    public void create(Student student)
+    public void add(Student student)
     {
         try 
         {
@@ -62,11 +59,70 @@ public class StudentDAO implements IDAOAcademicNotes<Student>
         {
             ConnectionFactory.closeConnectionDataBase(connectionDb, statement);
         }
+    }    
+
+    public void alterStatus(int id, boolean status)
+    {
+        try {
+            connectionDb = ConnectionFactory.getConnectionDataBase();
+
+            statement = connectionDb.prepareStatement("use " + nameDatabase + ";");
+            statement.executeUpdate();
+
+            var sql = "UPDATE STUDENTS SET ";
+            sql += " STUDENT_STATUS = ?";
+            sql += " WHERE STUDENT_ID = ? ;";
+
+            statement = connectionDb.prepareStatement(sql);
+            statement.setBoolean(1, status);
+            statement.setInt(2, id);
+
+            statement.executeUpdate();
+
+            System.out.println("Mudança de status com realizada com sucesso");
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("Erro na Mudança de status");
+        } 
+        finally 
+        {
+            ConnectionFactory.closeConnectionDataBase(connectionDb, statement);
+        }
+        
     }
 
-    @Override
-    public List<Student> read() 
+    public void delete(int id) 
     {
+        try 
+        {
+            connectionDb = ConnectionFactory.getConnectionDataBase();
+
+            statement = connectionDb.prepareStatement("use " + nameDatabase + ";");
+            statement.executeUpdate();
+
+            var sql = "DELETE FROM STUDENTS";
+            sql += " WHERE STUDENT_ID = ? ;";
+
+            statement = connectionDb.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
+            System.out.println("Deletado com sucesso");
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("Erro ao Deletar");
+        } 
+        finally 
+        {
+            ConnectionFactory.closeConnectionDataBase(connectionDb, statement);
+        }
+        
+    }
+
+    public List<Student> findAll() {
 
         var listStudents = new ArrayList<Student>();
 
@@ -78,10 +134,9 @@ public class StudentDAO implements IDAOAcademicNotes<Student>
             statement.executeUpdate();
 
             statement = connectionDb.prepareStatement("SELECT * FROM STUDENTS");
-            result =  statement.executeQuery();
+            result = statement.executeQuery();
 
-            while(result.next())
-            {
+            while (result.next()) {
                 var student = new Student();
 
                 student.setId(result.getInt("STUDENT_ID"));
@@ -101,21 +156,7 @@ public class StudentDAO implements IDAOAcademicNotes<Student>
         }
 
         return listStudents;
-        
-    }
 
-    @Override
-    public void update(Student student)
-    {
-
-        
-    }
-
-    @Override
-    public void delete(Student student) 
-    {
-
-        
     }
 
 }
