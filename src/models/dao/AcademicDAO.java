@@ -8,9 +8,10 @@ import models.bean.Student;
 
 public class AcademicDAO 
 {    
+    private static boolean isInitialize = true;
     private final String nameDatabase; 
     private Connection connectionDb;
-    private PreparedStatement statement;    
+    private PreparedStatement statement;       
 
     // Singleton
     private static final AcademicDAO INSTANCE = new AcademicDAO();
@@ -28,24 +29,28 @@ public class AcademicDAO
     public void initializeDatabase()
     {
         createDataBase();
-        createTableStudents();
-        createTableNote();
 
-        var studentDAO = StudentDAO.getInstance();
-        studentDAO.create(new Student("Vinicius Lima"));
-        studentDAO.create(new Student("Roberto Braga"));
-        studentDAO.create(new Student("Samanta Santos"));
-        studentDAO.create(new Student("Thiago Oliveira"));
-        studentDAO.create(new Student("Rebeca Andrade"));
-        studentDAO.create(new Student("Neymar Francisco"));
-        studentDAO.create(new Student("Pedro Lucas"));
-        studentDAO.create(new Student("Mateus Silva"));
-        studentDAO.create(new Student("Lucas Mattos"));
-        studentDAO.create(new Student("Letícia Biatriz"));
-        studentDAO.create(new Student("Maria Clara"));
-        studentDAO.create(new Student("Ana Gabriela"));
-        studentDAO.create(new Student("Samantha Araújo"));
-        studentDAO.create(new Student("Felipe Santos"));
+        if(isInitialize)
+        {           
+            createTableStudents();
+            createTableNote();
+
+            var studentDAO = StudentDAO.getInstance();
+            studentDAO.create(new Student("Vinicius Lima"));
+            studentDAO.create(new Student("Roberto Braga"));
+            studentDAO.create(new Student("Samanta Santos"));
+            studentDAO.create(new Student("Thiago Oliveira"));
+            studentDAO.create(new Student("Rebeca Andrade"));
+            studentDAO.create(new Student("Neymar Francisco"));
+            studentDAO.create(new Student("Pedro Lucas"));
+            studentDAO.create(new Student("Mateus Silva"));
+            studentDAO.create(new Student("Lucas Mattos"));
+            studentDAO.create(new Student("Letícia Biatriz"));
+            studentDAO.create(new Student("Maria Clara"));
+            studentDAO.create(new Student("Ana Gabriela"));
+            studentDAO.create(new Student("Samantha Araújo"));
+            studentDAO.create(new Student("Felipe Santos"));            
+        }
     }
 
     public void DeleteDatabase()
@@ -78,14 +83,15 @@ public class AcademicDAO
         try 
         {
             connectionDb = ConnectionFactory.getConnectionDataBase();
-            statement = connectionDb.prepareStatement("CREATE DATABASE IF NOT EXISTS " + nameDatabase + ";");
+            statement = connectionDb.prepareStatement("CREATE DATABASE " + nameDatabase + ";");
             statement.executeUpdate();
 
             System.out.println("Banco Criado com Sucesso: " + nameDatabase);
         } 
         catch (SQLException e) 
         {
-            System.out.println("Erro ao criar o Banco de dados: " + nameDatabase + "\nERRO: " + e);
+            //SE DATA EXISTS NÂO INICIAREMOS ELE NOVAMENTE
+            isInitialize = false;
         } 
         finally 
         {
@@ -165,6 +171,5 @@ public class AcademicDAO
             System.out.println("Erro: use " + nameDatabase + ": " + e);
         }
     }
-
 
 }

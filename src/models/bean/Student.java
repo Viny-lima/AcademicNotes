@@ -45,5 +45,30 @@ public class Student {
         this.status = status;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        var res = "\n==========================================";
+        res += "\nAluno [" + id + "]: " + name;        
+        
+        if(this.status == true)
+        {
+            res += " | APROVADO";
+        }
+        else
+        {
+            res += " | REPROVADO";
+        }        
+        if (notes != null) 
+        {
+            res += "\nCom as seguintes Notas: " + notes.toString();
+        }
+        else
+        {
+            res += "\nSem Notas no Sistema";
+        }
+        res += "\n==========================================\n";
+
+        return res;
+    }
 }
