@@ -1,19 +1,17 @@
 package models.bean;
 
-import java.util.List;
-
 public class Student {
 
     private int id;
     private String name;
-    public List<Integer> notas;
+    private boolean status;
 
     //Id
     public int getId() {
         return id;
-    }    
-    public void setId(int id) {
-        this.id = id;
+    }        
+    public boolean isStatus() {
+        return status;
     }
 
     //Name
@@ -23,5 +21,13 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }   
+    
+    //Status
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

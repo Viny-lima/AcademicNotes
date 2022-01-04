@@ -8,12 +8,14 @@ import java.sql.SQLException;
 
 
 public class ConnectionFactory {
-    
 
     //Passando porta de conexão com o banco de dados
-    private static final String URL = "jdbc:mysql://localhost/dbAcademicNotes";
+    private static String URL = "jdbc:mysql://localhost";
     private static final String USER = "root";
     private static final String PASSWORD = "ifpe2022";
+
+    //Not Instance class
+    private ConnectionFactory(){}
 
     public static Connection getConnectionDataBase(){
         
