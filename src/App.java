@@ -1,16 +1,14 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import models.dao.AcademicDAO;
 import models.dao.StudentDAO;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-        
-        AcademicDAO.getInstance().initializeDatabase();
-               
-        mostrarAlunosENotas();                
-        
-        
+    public static void main(String[] args) throws Exception 
+    {
 
+        AcademicDAO.getInstance().initializeDatabase();
+        
         mostrarAlunosENotas();
     }
 
@@ -50,5 +48,20 @@ public class App {
         StudentDAO.getInstance().delete(new Scanner(System.in).nextInt());
     }
 
+    public static void adicionarNotas()
+    {
+        int id;
+        var notes = new ArrayList<Double>();
 
+        System.out.println("QUAL ID DO ALUNO QUE DESEJA ADICIONAR NOTAS: ");
+        id = new Scanner(System.in).nextInt();
+
+        for(int i = 1; i <= 4; i++ )
+        {
+            System.out.println("NOTAS["+i+"]: " );
+            notes.add(new Scanner(System.in).nextDouble());
+        }               
+
+        StudentDAO.getInstance().addNotes(id, notes);
+    }
 }

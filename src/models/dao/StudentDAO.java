@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import connection.ConnectionFactory;
 import models.bean.Student;
 
@@ -60,6 +61,35 @@ public class StudentDAO
             ConnectionFactory.closeConnectionDataBase(connectionDb, statement);
         }
     }    
+
+    public void addNotes(int id, List<Double> notes)
+    {       
+        try {
+            connectionDb = ConnectionFactory.getConnectionDataBase();
+
+            statement = connectionDb.prepareStatement("use " + nameDatabase + ";");
+            statement.executeUpdate();
+
+            String sql = "INSERT INTO NOTES ( NOTE_VALUE, STUDENT_ID) VALUES ";
+            for (double note : notes) 
+            {            
+                sql += " (" + note + " , " + id + "),";                
+            }
+            sql = sql.substring(0, sql.length()-1);
+            statement = connectionDb.prepareStatement(sql);
+            statement.executeUpdate();
+
+            System.out.println("Notas adionadas com sucesso ");
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println("Erro ao adionar notas: " + e);
+        } 
+        finally 
+        {
+            ConnectionFactory.closeConnectionDataBase(connectionDb, statement);
+        }
+    }
 
     public void alterStatus(int id, boolean status)
     {
@@ -142,6 +172,20 @@ public class StudentDAO
                 student.setId(result.getInt("STUDENT_ID"));
                 student.setName(result.getString("STUDENT_NAME"));
                 student.setStatus(result.getBoolean("STUDENT_STATUS"));
+
+                //Adicionando Notas do Aluno
+                statement = connectionDb.prepareStatement("SELECT * FROM NOTES WHERE STUDENT_ID = " + student.getId());
+                ResultSet resultQuery2 = statement.executeQuery();
+
+                
+                while (resultQuery2.next()) 
+                {
+                    Double nota = resultQuery2.getDouble("NOTE_VALUE");
+                    if(nota != null)
+                    {
+                        student.notes.add(nota);
+                    }                        
+                }              
 
                 listStudents.add(student);
             }

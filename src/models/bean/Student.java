@@ -1,5 +1,6 @@
 package models.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
@@ -7,20 +8,25 @@ public class Student {
     private int id;
     private String name;
     private boolean status;
-    public List<Integer> notes;
+    public List<Double> notes;
 
-    public Student() {}
+    public Student() 
+    {
+        notes = new ArrayList<Double>();
+    }
 
     public Student(String name) 
-    {
+    {        
         this.name = name;
+        notes = new ArrayList<Double>();
     }
 
     public Student(int id, String name, boolean status) 
     {
         this.id = id;
         this.name = name;
-        this.status = status;        
+        this.status = status;   
+        notes = new ArrayList<Double>();     
     }
 
     //Id
