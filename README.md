@@ -1,4 +1,4 @@
-# AcademicNotes
+# Academic Notes
 
 Bem vindo a instalação do Academic Notes. Primeiramente verifique se sua máquina possui todos os requisitos necessários para o funcionamento:
 
